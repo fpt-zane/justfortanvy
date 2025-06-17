@@ -208,7 +208,13 @@ function App() {
   useEffect(() => {
     if (currentScreen === "confession" && showMessage && !showResponse) {
       const interval = setInterval(() => {
-        setTextIndex((prev) => (prev + 1) % confessionTexts.length)
+        setTextIndex((prev) => {
+          if (prev >= confessionTexts.length - 1) {
+            clearInterval(interval)
+            return prev
+          }
+          return prev + 1
+        })
       }, 3000)
       return () => clearInterval(interval)
     }
@@ -525,8 +531,16 @@ function App() {
 
       <div className="confession-content">
         {/* Header */}
-        <div className="confession-header" style={{ marginTop: isMobile ? "-60px" : "-40px" }}>
-          <div className="header-actions">
+        <div className="confession-header" style={{ 
+          marginTop: isMobile ? "20px" : "20px",
+          paddingTop: "20px"
+        }}>
+          <div className="header-actions" style={{ 
+            position: 'fixed',
+            top: isMobile ? '20px' : '40px',
+            left: isMobile ? '20px' : '40px',
+            zIndex: 1000
+          }}>
             <button 
               onClick={() => setCurrentScreen("slideshow")} 
               className={`btn-control ${isMobile ? 'mobile-back-button' : ''}`}
@@ -622,17 +636,18 @@ function App() {
                   {/* Confession text */}
                   <div className="confession-text-section">
                     <div className="text-wrapper">
-                      <p className="confession-text handwriting">{confessionTexts[textIndex]}</p>
+                      {textIndex === confessionTexts.length - 1 ? (
+                        <div className="final-question">
+                          <p className="question-text">anh có thể trở thành người có thể chăm sóc và lo lắng cho em được hong ạ?</p>
+                        </div>
+                      ) : (
+                        <p className="confession-text handwriting">{confessionTexts[textIndex]}</p>
+                      )}
                     </div>
 
                     {/* Ink blot */}
                     <div className="ink-blot-wrapper">
                       <div className="ink-blot" />
-                    </div>
-
-                    {/* Final question */}
-                    <div className="final-question">
-                      <p className="question-text">anh có thể trở thành người có thể chăm sóc và lo lắng cho em được hong ạ?</p>
                     </div>
                   </div>
 
@@ -647,16 +662,14 @@ function App() {
                     </div>
                   </div>
 
-                  {/* Response buttons */}
-                  {!showResponse && (
+                  {/* Response buttons - only show after all texts */}
+                  {!showResponse && textIndex === confessionTexts.length - 1 && (
                     <div className="response-section">
                       <p className="response-prompt">:</p>
-
                       <div className="response-buttons">
                         <button onClick={() => setShowResponse("yes")} className="response-btn yes-btn">
                           <span className="btn-text">"có"</span>
                         </button>
-
                         <button onClick={() => setShowResponse("maybe")} className="response-btn maybe-btn">
                           <span className="btn-text">"không"</span>
                         </button>
