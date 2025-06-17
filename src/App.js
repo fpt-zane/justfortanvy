@@ -525,31 +525,48 @@ function App() {
 
       <div className="confession-content">
         {/* Header */}
-        <div className="confession-header">
-          <div className="header-actions" style={{ marginTop: "-40px" }}>
+        <div className="confession-header" style={{ marginTop: isMobile ? "-60px" : "-40px" }}>
+          <div className="header-actions">
             <button 
               onClick={() => setCurrentScreen("slideshow")} 
-              className="btn-control"
+              className={`btn-control ${isMobile ? 'mobile-back-button' : ''}`}
               style={{
                 transform: `translate(${mousePosition.x * (isMobile ? 0.5 : 2)}px, ${mousePosition.y * (isMobile ? 0.5 : 2)}px)`,
+                ...(isMobile && {
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                })
               }}
             >
               <svg 
-                width="24" 
-                height="24" 
+                width={isMobile ? "28" : "24"} 
+                height={isMobile ? "28" : "24"} 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
                 strokeWidth="2"
                 className="icon-sm"
+                style={{
+                  transition: 'transform 0.3s ease',
+                  transform: 'translateX(-1px)'
+                }}
               >
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
             </button>
           </div>
 
-          <h1 className="title-xl">dạ hết ròi ạ</h1>
-          <p className="subtitle">sau tất cả, anh có vài điều muốn nói...</p>
+          <h1 className="title-xl" style={{ marginTop: isMobile ? "20px" : "0" }}>dạ hết ròi ạ</h1>
+          <p className="subtitle" style={{ marginTop: isMobile ? "8px" : "0" }}>sau tất cả, anh có vài điều muốn nói...</p>
         </div>
 
         {/* Message reveal */}
