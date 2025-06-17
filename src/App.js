@@ -190,6 +190,20 @@ function App() {
     }
   }, [currentScreen, isPlaying, currentSlide, memories.length])
 
+  // Add smooth slide transition
+  const handleSlideChange = (newSlide) => {
+    const storyImage = document.querySelector('.story-image')
+    if (storyImage) {
+      storyImage.style.opacity = '0.7'
+      setTimeout(() => {
+        setCurrentSlide(newSlide)
+        storyImage.style.opacity = '1'
+      }, 200)
+    } else {
+      setCurrentSlide(newSlide)
+    }
+  }
+
   // Text cycling for confession
   useEffect(() => {
     if (currentScreen === "confession" && showMessage && !showResponse) {
@@ -362,25 +376,46 @@ function App() {
             </div>
 
             <div className="controls">
-              <button onClick={() => setCurrentSlide(Math.max(0, currentSlide - 10))} className="btn-control">
+              <button 
+                onClick={() => handleSlideChange(Math.max(0, currentSlide - 10))} 
+                className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 -10
               </button>
-              <button onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))} className="btn-control">
+              <button 
+                onClick={() => handleSlideChange(Math.max(0, currentSlide - 1))} 
+                className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 ←
               </button>
-              <button onClick={() => setIsPlaying(!isPlaying)} className="btn-control">
+              <button 
+                onClick={() => setIsPlaying(!isPlaying)} 
+                className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 {isPlaying ? <Pause className="icon-sm" /> : <Play className="icon-sm" />}
               </button>
-              <button onClick={() => setCurrentSlide(Math.min(memories.length - 1, currentSlide + 1))} className="btn-control">
+              <button 
+                onClick={() => handleSlideChange(Math.min(memories.length - 1, currentSlide + 1))} 
+                className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 →
               </button>
               <button
-                onClick={() => setCurrentSlide(Math.min(memories.length - 1, currentSlide + 10))}
+                onClick={() => handleSlideChange(Math.min(memories.length - 1, currentSlide + 10))}
                 className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
               >
                 +10
               </button>
-              <button onClick={() => setCurrentScreen("confession")} className="btn-control">
+              <button 
+                onClick={() => setCurrentScreen("confession")} 
+                className="btn-control"
+                style={{ transition: 'all 0.3s ease' }}
+              >
                 <SkipForward className="icon-sm" />
               </button>
             </div>
@@ -401,6 +436,10 @@ function App() {
                   src={currentMemory.image || "/placeholder.svg"}
                   alt={currentMemory.title}
                   className="story-image"
+                  style={{
+                    transition: 'opacity 0.2s ease-in-out',
+                    opacity: 1
+                  }}
                 />
 
                 <div className="image-overlay" />
