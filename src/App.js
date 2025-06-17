@@ -39,7 +39,6 @@ function App() {
 
   const memories = [
     { image: "/images/IMG_1596.jpg", title: "kỉ niệm", description: "cùng anh nhìn lại nhũng gì đã diễn ra vài tháng vừa qua nhe", color: "rose-pink" },
-    { image: "/images/IMG_3521.jpg", title: "kỉ niệm", description: "cùng anh nhìn lại nhũng gì đã diễn ra vài tháng vừa qua nhe", color: "rose-pink" },
     { image: "/images/IMG_1302.jpg", title: "kỉ niệm", description: "cùng anh nhìn lại nhũng gì đã diễn ra vài tháng vừa qua nhe", color: "rose-pink" },
     { image: "/images/IMG_3203.jpg", title: "kỉ niệm", description: "cùng anh nhìn lại nhũng gì đã diễn ra vài tháng vừa qua nhe", color: "rose-pink" },
     { image: "/images/IMG_3749.jpg", title: "kỉ niệm", description: "cùng anh nhìn lại nhũng gì đã diễn ra vài tháng vừa qua nhe", color: "rose-pink" },
@@ -488,6 +487,27 @@ function App() {
       <div className="confession-content">
         {/* Header */}
         <div className="confession-header">
+          <div className="header-actions" style={{ marginTop: "-40px" }}>
+            <button 
+              onClick={() => setCurrentScreen("slideshow")} 
+              className="btn-control"
+              style={{
+                transform: `translate(${mousePosition.x * (isMobile ? 0.5 : 2)}px, ${mousePosition.y * (isMobile ? 0.5 : 2)}px)`,
+              }}
+            >
+              <svg 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+                className="icon-sm"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+          </div>
 
           <h1 className="title-xl">dạ hết ròi ạ</h1>
           <p className="subtitle">sau tất cả, anh có vài điều muốn nói...</p>
@@ -613,11 +633,7 @@ function App() {
                   </svg>
                 </div>
 
-                <h3 className="response-title">This makes me so happy!</h3>
-
-                <p className="response-text">
-                  Thank you for being open to this. I'm excited to see what our story becomes next.
-                </p>
+                <h3 className="response-title">Anh cảm ơn ạ ❤️</h3>
 
                 <div className="response-emojis">
                   <span>✨</span>
@@ -642,11 +658,7 @@ function App() {
                   </svg>
                 </div>
 
-                <h3 className="response-title">I understand</h3>
-
-                <p className="response-text">
-                  Take all the time you need. Whatever you decide, I'm grateful for everything we've shared.
-                </p>
+                <h3 className="response-title">Anh hiểu ròi ạ 🥺</h3>
 
                 <div className="response-emojis">
                   <span>🤗</span>
